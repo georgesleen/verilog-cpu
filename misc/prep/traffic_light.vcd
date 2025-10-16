@@ -1,0 +1,186 @@
+$date
+	Thu Oct 16 16:02:48 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	10ps
+$end
+$scope module tb_traffic_light $end
+$var wire 3 ! ns_light [2:0] $end
+$var wire 3 " ew_light [2:0] $end
+$var reg 1 # clk $end
+$var reg 1 $ rst_n $end
+$var reg 1 % timer_done $end
+$scope module dut $end
+$var wire 1 # clk $end
+$var wire 1 $ rst_n $end
+$var wire 1 % timer_done $end
+$var parameter 3 & GREEN $end
+$var parameter 3 ' RED $end
+$var parameter 3 ( YELLOW $end
+$var reg 3 ) current_state [2:0] $end
+$var reg 3 * ew_light [2:0] $end
+$var reg 3 + next_state [2:0] $end
+$var reg 3 , ns_light [2:0] $end
+$upscope $end
+$scope begin $ivl_for_loop0 $end
+$var integer 32 - i [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b10 (
+b1 '
+b100 &
+$end
+#0
+$dumpvars
+b0 -
+b1 ,
+b10 +
+b1 *
+b10 )
+0%
+0$
+0#
+b1 "
+b1 !
+$end
+#1000
+b11 +
+1%
+1#
+#2000
+0#
+#3000
+b10 +
+b1 -
+0%
+1#
+#4000
+0#
+#5000
+b11 +
+1%
+1#
+#6000
+0#
+#7000
+b10 +
+b10 -
+0%
+1#
+#8000
+0#
+#9000
+b11 +
+1%
+1#
+#10000
+0#
+#11000
+b10 +
+b11 -
+0%
+1#
+#12000
+0#
+#13000
+b11 +
+1%
+1#
+#14000
+0#
+#15000
+b10 +
+b100 -
+0%
+1#
+#16000
+0#
+#17000
+b11 +
+1%
+1#
+#18000
+0#
+#19000
+b10 +
+b101 -
+0%
+1#
+#20000
+0#
+#21000
+b11 +
+1%
+1#
+#22000
+0#
+#23000
+b10 +
+b110 -
+0%
+1#
+#24000
+0#
+#25000
+b11 +
+1%
+1#
+#26000
+0#
+#27000
+b10 +
+b111 -
+0%
+1#
+#28000
+0#
+#29000
+b11 +
+1%
+1#
+#30000
+0#
+#31000
+b10 +
+b1000 -
+0%
+1#
+#32000
+0#
+#33000
+b11 +
+1%
+1#
+#34000
+0#
+#35000
+b10 +
+b1001 -
+0%
+1#
+#36000
+0#
+#37000
+b11 +
+1%
+1#
+#38000
+0#
+#39000
+b10 +
+b1010 -
+0%
+1#
+#40000
+0#
+#41000
+1#
+#42000
+0#
+1$
