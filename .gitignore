@@ -1,2 +1,6 @@
 # Build directory
 build
+
+# Waveforms and tb outputs
+*.vcd
+*.vvp
