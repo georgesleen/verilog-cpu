@@ -1,4 +1,6 @@
 +incdir+/home/george-sleen/documents/projects/verilog-cpu/misc/prep
-+incdir+/home/george-sleen/documents/projects/verilog-cpu/src
++incdir+/home/george-sleen/documents/projects/verilog-cpu/src/alu
++incdir+/home/george-sleen/documents/projects/verilog-cpu/src/program-counter
 +incdir+/home/george-sleen/documents/projects/verilog-cpu/misc/prep
-+incdir+/home/george-sleen/documents/projects/verilog-cpu/src
++incdir+/home/george-sleen/documents/projects/verilog-cpu/src/alu
++incdir+/home/george-sleen/documents/projects/verilog-cpu/src/program-counter
