@@ -4,18 +4,18 @@
 *  @param WIDTH How wide registers in the architecture are
 */
 module program_counter #(
-  parameter WIDTH
-)(
-  input logic clk,
-  input logic n_rst,
-  input logic [WIDTH-1:0]  in_bus,
-  output logic [WIDTH-1:0] out_address
+    parameter int WIDTH
+) (
+    input logic clk,
+    input logic n_rst,
+    input logic [WIDTH-1:0] in_address,
+    output logic [WIDTH-1:0] out_address
 );
 
   /**
   *  op-code definitions
-  */ 
-  localparam [7:0] JUMP = 8'h00;
+  */
+  localparam int [7:0] JUMP = 8'h00;
 
   // register to track if a jump should be performed
   logic r_jump;
@@ -26,8 +26,7 @@ module program_counter #(
   always_ff @(posedge clk) begin
     if (r_jump == 1'b1) begin
       out_address <= 32'hffff;
-    end
-    else begin
+    end else begin
       out_address <= out_address + 1;
     end
   end
@@ -38,8 +37,7 @@ module program_counter #(
   always_comb begin
     if (in_bus[7:0] == JUMP) begin
       r_jump = 1'b1;
-    end
-    else begin
+    end else begin
       r_jump = 1'b0;
     end
   end
@@ -50,8 +48,7 @@ module program_counter #(
   always_ff @(negedge n_rst) begin
     if (~n_rst) begin
       out_address <= 0;
-    end
-    else begin
+    end else begin
       out_address <= out_address;
     end
   end
