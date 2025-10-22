@@ -1,0 +1,23 @@
+[rule]
+include = [
+  "unused",
+  "uninitialized",
+  "implicit",
+  "duplicate",
+  "unreachable"
+]
+
+exclude = [
+  "copyright",
+  "module-filename",
+  "nonansi",
+  "module-prefix",
+  "module-name-regex",
+  "module-name-style",
+  "parameter-name-regex",
+  "port-name-regex",
+  "reg-wire",
+  "always-ff",
+  "comma-format"
+]
+
