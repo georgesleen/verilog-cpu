@@ -44,7 +44,7 @@ module ProgramCounter_tb ();
     rst_n = 0;
     enable = 0;
     jump = 0;
-    jump_value = '0;
+    jump_address = '0;
     repeat (2) @(posedge clk);
     rst_n = 1;
     @(posedge clk);
@@ -76,18 +76,18 @@ module ProgramCounter_tb ();
   /// Test suite
   initial begin
     $dumpfile("program_counter.vcd");
-    $dumpvars(0, tb_ProgramCounter);
+    $dumpvars(0, ProgramCounter_tb);
 
     apply_reset();
-    check_value(RESET_ADDRESS, "after reset");
+    check_value(RESET_VECTOR, "after reset");
 
     repeat (3) @(posedge clk);
-    check_value(RESET_ADDRESS, "hold when idle");
+    check_value(RESET_VECTOR, "hold when idle");
 
     enable = 1;
     repeat (3) @(posedge clk);
     enable = 0;
-    check_value(RESET_ADDRESS + STRIDE * 3, "three clock cycles");
+    check_value(RESET_VECTOR + STRIDE * 3, "three clock cycles");
 
     jump_address = 'hABCD1234;
     jump = 1;

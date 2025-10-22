@@ -28,10 +28,10 @@ module ProgramCounter #(
   // Sequential register with async reset
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
-      pc_current <= RESET_ADDRESS;
+      pc_current_o <= RESET_VECTOR;
     end
     else begin
-      pc_current <= pc_next;
+      pc_current_o <= pc_next;
     end
   end
 
