@@ -1,23 +1,37 @@
 [rule]
+
 include = [
   "unused",
   "uninitialized",
   "implicit",
   "duplicate",
-  "unreachable"
+  "unreachable",
+  "module-name-style",
+  "port-name-style",
+  "parameter-name-style",
 ]
+
 
 exclude = [
   "copyright",
   "module-filename",
   "nonansi",
-  "module-prefix",
-  "module-name-regex",
-  "module-name-style",
-  "parameter-name-regex",
-  "port-name-regex",
   "reg-wire",
   "always-ff",
-  "comma-format"
+  "always-comb",
+  "always-latch",
+  "module-prefix",
+  "module-name-regex",
+  "parameter-name-regex",
+  "port-name-regex",
+  "comma-format",
 ]
 
+[option.module-name-style]
+case = "camel"
+
+[option.port-name-style]
+case = "camel"
+
+[option.parameter-name-style]
+case = "upper"
