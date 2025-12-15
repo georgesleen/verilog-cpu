@@ -3,12 +3,12 @@ module ProgramCounter #(
     parameter logic [WIDTH-1:0] RESET_VECTOR = '0,
     parameter logic [WIDTH-1:0] STRIDE = 'h1
 ) (
-    input logic clk_i,
-    input logic rst_ni,
-    input logic enable_i,
-    input logic jump_i,
-    input logic [WIDTH-1:0] jump_address_i,
-    output logic [WIDTH-1:0] pc_current_o
+    input logic  clk_i,
+    input logic  rst_ni,
+    input logic  enable_i,
+    input logic  jump_i,
+    input logic  [WIDTH-1:0] jump_address_i,
+    output logic  [WIDTH-1:0] pc_current_o
 );
 
   // Internal state register
