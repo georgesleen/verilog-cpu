@@ -42,7 +42,8 @@ iverilog -g2012 \
   rtl/memory/instruction_rom.sv \
   rtl/memory/data_ram.sv
 ```
-**Note**: rtl/riscv_pkg.sv *MUST* be compiled before everything else
+**Note**: ```rtl/riscv_pkg.sv``` *MUST* be compiled before everything else
+
 2. Run simulation
 ```bash
 cd sim
