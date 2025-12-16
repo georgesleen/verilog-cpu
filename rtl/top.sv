@@ -1,3 +1,5 @@
+import riscv_pkg::*;
+
 /**
 * top.sv
 * @brief Top-level definition for a simple RISC-V SoC.
@@ -12,15 +14,44 @@ module top #(
     input logic clk,
     input logic n_rst
 );
-  import riscv_pkg::*;
+    logic [XLEN-1:0] program_counter;
+    logic [INSTRUCTION_WIDTH-1:0] instruction;
 
-  logic [XLEN-1:0] program_counter;
-  logic [INSTRUCTION_WIDTH-1:0] instruction_register;
+    logic memory_write_enable;
+    logic [XLEN-1:0] memory_address;
+    logic [XLEN-1:0] memory_write_data;
+    logic [XLEN-1:0] memory_read_data;
 
-  logic memory_write_enable;
-  logic [XLEN-1:0] memory_address;
-  logic [XLEN-1:0] memory_write_data;
-  logic [XLEN-1:0] memory_read_data;
+    /*
+    * CPU
+    */
+    core cpu (
+        .clk  (clk),
+        .n_rst(n_rst),
 
+        .program_counter(program_counter),
+        .instruction    (instruction_register),
+
+        .memory_write_enable(memory_write_enable),
+        .memory_address     (memory_address),
+        .memory_write_data  (memory_write_data),
+        .memory_read_data   (memory_read_data)
+    );
+
+    /*
+    * Memory
+    */
+    instruction_rom rom (
+        .address    (program_counter),
+        .instruction(instruction_register)
+    );
+
+    data_ram ram (
+        .clk         (clk),
+        .write_enable(memory_write_enable),
+        .address     (memory_address),
+        .write_data  (memory_write_data),
+        .read_data   (memory_read_data)
+    );
 
 endmodule
