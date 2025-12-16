@@ -65,7 +65,7 @@ module core #(
         memory_write_data   = '0;
 
         // Instruction specific
-        case (instruction_class)
+        unique case (instruction_class)
             // Integer arithmetic with immediate
             CLASS_OP_IMM: begin
                 registers_next[destination_register_index] = registers[source_register_1_index] + immediate_i;
