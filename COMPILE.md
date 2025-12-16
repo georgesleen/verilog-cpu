@@ -32,9 +32,9 @@ mv sw/main.hex sim/
 ```bash
 iverilog -g2012 \
   -o sim/sim.out \
-  sim/tb_core.sv \
-  rtl/top.sv \
+  sim/tb_top.sv \
   rtl/riscv_pkg.sv \
+  rtl/top.sv \
   rtl/core/core.sv \
   rtl/core/decode.sv \
   rtl/core/imm_decode.sv \
@@ -42,6 +42,7 @@ iverilog -g2012 \
   rtl/memory/instruction_rom.sv \
   rtl/memory/data_ram.sv
 ```
+**Note**: rtl/riscv_pkg.sv *MUST* be compiled before everything else
 2. Run simulation
 ```bash
 cd sim
