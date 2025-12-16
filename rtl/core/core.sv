@@ -57,10 +57,12 @@ module core #(
     always_comb begin
         // Default behavior
         program_counter_next = program_counter + INSTRUCTION_BYTES;
-        registers_next       = registers;
-        memory_write_enable  = 1'b0;
-        memory_address       = '0;
-        memory_write_data    = '0;
+        for (int i = 0; i < REGISTER_COUNT; i++) begin
+            registers_next[i] = registers[i];
+        end
+        memory_write_enable = 1'b0;
+        memory_address      = '0;
+        memory_write_data   = '0;
 
         // Instruction specific
         case (instruction_class)
@@ -77,7 +79,7 @@ module core #(
             CLASS_STORE: begin
                 memory_write_enable = 1'b1;
                 memory_address      = registers[source_register_1_index] + immediate_s;
-                memory_write_data   = register_file[source_register_2_index];
+                memory_write_data   = registers[source_register_2_index];
             end
             default: begin
                 // nop
@@ -99,7 +101,9 @@ module core #(
             end
         end else begin
             program_counter <= program_counter_next;
-            registers       <= registers_next;
+            for (int i = 0; i < REGISTER_COUNT; i++) begin
+                registers_next[i] <= registers[i];
+            end
         end
     end
 

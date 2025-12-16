@@ -30,7 +30,7 @@ module top #(
         .n_rst(n_rst),
 
         .program_counter(program_counter),
-        .instruction    (instruction_register),
+        .instruction    (instruction),
 
         .memory_write_enable(memory_write_enable),
         .memory_address     (memory_address),
@@ -43,7 +43,7 @@ module top #(
     */
     instruction_rom rom (
         .address    (program_counter),
-        .instruction(instruction_register)
+        .instruction(instruction)
     );
 
     data_ram ram (

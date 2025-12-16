@@ -1,12 +1,12 @@
 module tb_top;
 
     logic clk;
-    logic reset;
+    logic n_rst;
 
     // Instantiate DUT
     top dut (
         .clk  (clk),
-        .reset(reset)
+        .n_rst(n_rst)
     );
 
     //
@@ -21,9 +21,9 @@ module tb_top;
     // Reset sequence
     //
     initial begin
-        reset = 1;
+        n_rst = 0;
         #20;
-        reset = 0;
+        n_rst = 1;
     end
 
     //
