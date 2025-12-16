@@ -1,6 +1,8 @@
-+incdir+/home/george-sleen/documents/projects/verilog-cpu/misc/prep
-+incdir+/home/george-sleen/documents/projects/verilog-cpu/misc/program-counter-2
-+incdir+/home/george-sleen/documents/projects/verilog-cpu/src
-+incdir+/home/george-sleen/documents/projects/verilog-cpu/misc/prep
-+incdir+/home/george-sleen/documents/projects/verilog-cpu/misc/program-counter-2
-+incdir+/home/george-sleen/documents/projects/verilog-cpu/src
++incdir+/home/george-sleen/Documents/projects/verilog-cpu/rtl/core
++incdir+/home/george-sleen/Documents/projects/verilog-cpu/rtl/memory
++incdir+/home/george-sleen/Documents/projects/verilog-cpu/rtl
++incdir+/home/george-sleen/Documents/projects/verilog-cpu/sim
++incdir+/home/george-sleen/Documents/projects/verilog-cpu/rtl/core
++incdir+/home/george-sleen/Documents/projects/verilog-cpu/rtl/memory
++incdir+/home/george-sleen/Documents/projects/verilog-cpu/rtl
++incdir+/home/george-sleen/Documents/projects/verilog-cpu/sim
