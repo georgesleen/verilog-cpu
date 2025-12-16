@@ -8,7 +8,7 @@ include = [
   "unreachable",
   "module-name-style",
   "port-name-style",
-  "parameter-name-style",
+  "parameter-name-regex",
 ]
 
 
@@ -22,9 +22,9 @@ exclude = [
   "always-latch",
   "module-prefix",
   "module-name-regex",
-  "parameter-name-regex",
   "port-name-regex",
   "comma-format",
+  "unpacked-dimensions-range-ordering",
 ]
 
 [option.module-name-style]
@@ -33,5 +33,5 @@ case = "camel"
 [option.port-name-style]
 case = "camel"
 
-[option.parameter-name-style]
-case = "upper"
+[option.parameter-name-regex]
+regex = "^[A-Z][A-Z0-9_]*$"
