@@ -48,7 +48,7 @@ module core #(
     assign immediate_i = {{(XLEN - 12) {instruction[31]}}, instruction[31:20]};
     assign immediate_s = {{(XLEN - 12) {instruction[31]}}, instruction[31:25], instruction[11:7]};
     assign immediate_j = {
-        {(XLEN - 12) {instruction[31]}}, instruction[19:12], instruction[20], instruction[30:21]
+        {(XLEN - 12) {instruction[31]}}, instruction[19:12], instruction[20], instruction[30:21], 1'b0
     };
 
     /*
@@ -102,7 +102,7 @@ module core #(
         end else begin
             program_counter <= program_counter_next;
             for (int i = 0; i < REGISTER_COUNT; i++) begin
-                registers_next[i] <= registers[i];
+                registers[i] <= registers_next[i];
             end
         end
     end
