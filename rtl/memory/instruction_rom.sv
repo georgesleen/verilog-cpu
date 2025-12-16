@@ -24,7 +24,7 @@ module instruction_rom #(
     * Load program at sim time
     */
     initial begin
-        readmemh("program.hex", memory);
+        $readmemh("main.hex", memory);
     end
 
 endmodule
