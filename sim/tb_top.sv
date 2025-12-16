@@ -1,5 +1,7 @@
 module tb_top;
 
+    import riscv_pkg::*;
+
     logic clk;
     logic n_rst;
 
@@ -9,34 +11,57 @@ module tb_top;
         .n_rst(n_rst)
     );
 
-    //
+    // ----------------------------------------
     // Clock generation
-    //
+    // ----------------------------------------
     initial begin
         clk = 0;
-        forever #5 clk = ~clk;  // 100 MHz equivalent
+        forever #5 clk = ~clk;
     end
 
-    //
+    // ----------------------------------------
     // Reset sequence
-    //
+    // ----------------------------------------
     initial begin
         n_rst = 0;
         #20;
         n_rst = 1;
     end
 
-    //
-    // Simulation control
-    //
+    // ----------------------------------------
+    // Waveform dumping
+    // ----------------------------------------
     initial begin
-        // Dump waves
         $dumpfile("wave.vcd");
         $dumpvars(0, dut);
+    end
 
-        // Run long enough to execute program
-        #1000;
+    // ----------------------------------------
+    // MMIO monitor
+    // ----------------------------------------
+    always @(posedge clk) begin
+        if (dut.cpu.memory_write_enable) begin
 
+            // PRINT
+            if (dut.cpu.memory_address == MMIO_PRINT_ADDR) begin
+                $display("[TB PRINT] %0d (0x%08x)", dut.cpu.memory_write_data,
+                         dut.cpu.memory_write_data);
+            end
+
+            // DONE
+            if (dut.cpu.memory_address == MMIO_DONE_ADDR) begin
+                $display("[TB] PROGRAM DONE");
+                $finish;
+            end
+        end
+    end
+
+    // ----------------------------------------
+    // Timeout
+    // ----------------------------------------
+    initial begin
+        #100000;
+        $display("[TB] TIMEOUT");
         $finish;
     end
 

@@ -5,6 +5,10 @@
 */
 package riscv_pkg;
 
+    // Testbench-only MMIO addresses
+    localparam logic [XLEN-1:0] MMIO_DONE_ADDR = 32'h0000_0100;
+    localparam logic [XLEN-1:0] MMIO_PRINT_ADDR = 32'h0000_0104;
+
     // ISA specification
     localparam int BYTE_WIDTH = 8;
     localparam int INSTRUCTION_WIDTH = 32;
