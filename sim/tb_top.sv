@@ -1,6 +1,8 @@
 import tb_pkg::*;
 
-module tb_top;
+module tb_top #(
+    parameter string WAVE_FILE = "build/sim/wave.vcd"
+);
     logic clk;
     logic n_rst;
 
@@ -9,6 +11,7 @@ module tb_top;
         .clk  (clk),
         .n_rst(n_rst)
     );
+    defparam dut.rom.HEX_FILE = "build/sim/main.hex";
 
     // ----------------------------------------
     // Clock generation
@@ -31,7 +34,7 @@ module tb_top;
     // Waveform dumping
     // ----------------------------------------
     initial begin
-        $dumpfile("wave.vcd");
+        $dumpfile(WAVE_FILE);
         $dumpvars(0, dut);
     end
 

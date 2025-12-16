@@ -2,7 +2,8 @@ import riscv_pkg::*;
 
 module instruction_rom #(
     parameter int XLEN        = 32,
-    parameter int DEPTH_WORDS = 1024
+    parameter int DEPTH_WORDS = 1024,
+    parameter string HEX_FILE = "main.hex"
 ) (
     input logic [XLEN-1:0] address,
     output logic [INSTRUCTION_WIDTH-1:0] instruction
@@ -33,7 +34,7 @@ module instruction_rom #(
     * Load program at sim time
     */
     initial begin
-        $readmemh("main.hex", memory);
+        $readmemh(HEX_FILE, memory);
     end
 
 endmodule

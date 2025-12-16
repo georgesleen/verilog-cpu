@@ -1,2 +1,5 @@
 # Language servers
 .svlangserver/
+
+# Build artifacts
+build/
