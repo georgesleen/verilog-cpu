@@ -1,4 +1,4 @@
-import riscv_pkg::*;
+import tb_pkg::*;
 
 module tb_top;
     logic clk;

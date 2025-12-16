@@ -49,8 +49,9 @@ run_sim() {
 
   iverilog -g2012 \
     -o sim/sim.out \
-    rtl/riscv_pkg.sv \
+    sim/tb_pkg.sv \
     sim/tb_top.sv \
+    rtl/riscv_pkg.sv \
     rtl/top.sv \
     rtl/core/core.sv \
     rtl/core/decode.sv \
