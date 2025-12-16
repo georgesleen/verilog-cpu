@@ -1,7 +1,6 @@
+import riscv_pkg::*;
+
 module tb_top;
-
-    import riscv_pkg::*;
-
     logic clk;
     logic n_rst;
 

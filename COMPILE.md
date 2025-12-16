@@ -32,8 +32,8 @@ mv sw/main.hex sim/
 ```bash
 iverilog -g2012 \
   -o sim/sim.out \
-  sim/tb_top.sv \
   rtl/riscv_pkg.sv \
+  sim/tb_top.sv \
   rtl/top.sv \
   rtl/core/core.sv \
   rtl/core/decode.sv \
