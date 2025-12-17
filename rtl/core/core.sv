@@ -19,8 +19,8 @@ module core #(
     * Architectural state
     */
     logic [XLEN-1:0] program_counter_next;
-    logic [XLEN-1:0] registers[REGISTER_COUNT-1:0];
-    logic [XLEN-1:0] registers_next[REGISTER_COUNT-1:0];
+    logic [XLEN-1:0] registers[REGISTER_COUNT];
+    logic [XLEN-1:0] registers_next[REGISTER_COUNT];
 
     /*
     * Decode
