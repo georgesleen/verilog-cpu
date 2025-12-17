@@ -13,17 +13,11 @@ SIM_OUT := $(SIM_BUILD)/sim.out
 SIM_VCD := $(SIM_BUILD)/wave.vcd
 
 SW_SRCS := sw/start.S sw/main.c
-RTL_SRCS := \
-	sim/tb_pkg.sv \
-	sim/tb_top.sv \
-	rtl/riscv_pkg.sv \
-	rtl/top.sv \
-	rtl/core/core.sv \
-	rtl/core/decode.sv \
-	rtl/core/imm_decode.sv \
-	rtl/core/alu.sv \
-	rtl/memory/instruction_rom.sv \
-	rtl/memory/data_ram.sv
+# Collect RTL sources automatically. Keep package files first so iverilog sees
+# them before anything that imports them.
+RTL_PKGS := $(shell find sim rtl -name '*pkg.sv' | sort)
+RTL_ALL  := $(shell find sim rtl -name '*.sv' | sort)
+RTL_SRCS := $(RTL_PKGS) $(filter-out $(RTL_PKGS),$(RTL_ALL))
 
 .PHONY: all help sw sim disasm wave clean
 
