@@ -12,36 +12,29 @@ module tb_top #(
         .n_rst(n_rst)
     );
 
+    // Jank way to load in program
     defparam dut.rom.HEX_FILE = "build/tb/main.hex";
 
-    // ----------------------------------------
     // Clock generation
-    // ----------------------------------------
     initial begin
         clk = 0;
         forever #5 clk = ~clk;
     end
 
-    // ----------------------------------------
     // Reset sequence
-    // ----------------------------------------
     initial begin
         n_rst = 0;
         #20;
         n_rst = 1;
     end
 
-    // ----------------------------------------
     // Waveform dumping
-    // ----------------------------------------
     initial begin
         $dumpfile(WAVE_FILE);
         $dumpvars(0, dut);
     end
 
-    // ----------------------------------------
     // MMIO monitor
-    // ----------------------------------------
     always @(posedge clk) begin
         if (dut.cpu.memory_write_enable) begin
 
@@ -59,9 +52,7 @@ module tb_top #(
         end
     end
 
-    // ----------------------------------------
     // Timeout
-    // ----------------------------------------
     initial begin
         #100000;
         $display("[TB] TIMEOUT");
