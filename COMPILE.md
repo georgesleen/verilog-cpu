@@ -6,7 +6,7 @@ Eventually this should be replaced with a script.
 
 Outputs land in `build/` to keep the repo tidy:
 ```bash
-mkdir -p build/sw build/sim
+mkdir -p build/sw build/tb
 ```
 
 ## Build RISC-V program
@@ -32,9 +32,9 @@ riscv64-unknown-elf-objcopy \
 1. Synthesis with icarus verilog
 ```bash
 iverilog -g2012 \
-  -o build/sim/sim.out \
-  sim/tb_pkg.sv \
-  sim/tb_top.sv \
+  -o build/tb/sim.out \
+  tb/tb_pkg.sv \
+  tb/tb_top.sv \
   rtl/riscv_pkg.sv \
   rtl/top.sv \
   rtl/core/core.sv \
@@ -48,11 +48,11 @@ iverilog -g2012 \
 
 2. Run simulation
 ```bash
-vvp build/sim/sim.out
+vvp build/tb/sim.out
 ```
 3. View waveforms
 ```bash
-gtkwave build/sim/wave.vcd
+gtkwave build/tb/wave.vcd
 ```
 ## Disassembly
 ```bash
