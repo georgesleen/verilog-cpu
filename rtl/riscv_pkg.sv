@@ -12,7 +12,7 @@ package riscv_pkg;
 
     // Field widths and indices
     localparam int OPCODE_FIELD_WIDTH = 7;
-    localparam int REGISTER_INDEX_WIDTH = 5;
+    localparam int REGISTER_INDEX_WIDTH = $clog2(REGISTER_COUNT);
 
     localparam int OPCODE_MSB = 6;
     localparam int OPCODE_LSB = 0;

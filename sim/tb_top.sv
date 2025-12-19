@@ -11,6 +11,7 @@ module tb_top #(
         .clk  (clk),
         .n_rst(n_rst)
     );
+
     defparam dut.rom.HEX_FILE = "build/sim/main.hex";
 
     // ----------------------------------------
