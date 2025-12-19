@@ -46,9 +46,6 @@ module core #(
     * Decode
     */
     logic [OPCODE_FIELD_WIDTH-1:0] instruction_class;
-    logic [REGISTER_INDEX_WIDTH-1:0] destination_register_index;
-    logic [REGISTER_INDEX_WIDTH-1:0] source_register_1_index;
-    logic [REGISTER_INDEX_WIDTH-1:0] source_register_2_index;
 
     /*
     * Immediate values
@@ -61,9 +58,9 @@ module core #(
     * Decode logic
     */
     assign instruction_class = instruction[OPCODE_MSB:OPCODE_LSB];
-    assign destination_register_index = instruction[DEST_REG_MSB:DEST_REG_LSB];
-    assign source_register_1_index = instruction[SRC_REG1_MSB:SRC_REG1_LSB];
-    assign source_register_2_index = instruction[SRC_REG2_MSB:SRC_REG2_LSB];
+    assign rd_addr = instruction[DEST_REG_MSB:DEST_REG_LSB];
+    assign rs1_addr = instruction[SRC_REG1_MSB:SRC_REG1_LSB];
+    assign rs2_addr = instruction[SRC_REG2_MSB:SRC_REG2_LSB];
 
     assign immediate_i = {{(XLEN - 12) {instruction[31]}}, instruction[31:20]};
     assign immediate_s = {{(XLEN - 12) {instruction[31]}}, instruction[31:25], instruction[11:7]};
@@ -88,10 +85,7 @@ module core #(
         memory_write_data    = '0;
 
         // Register default behavior
-        rs1_addr             = source_register_1_index;
-        rs2_addr             = source_register_2_index;
         rd_wen               = 1'b0;
-        rd_addr              = '0;
         rd_data              = '0;
 
         // Instruction specific
@@ -99,7 +93,6 @@ module core #(
             // Integer arithmetic with immediate
             CLASS_OP_IMM: begin
                 rd_wen  = 1'b1;
-                rd_addr = destination_register_index;
                 rd_data = rs1_data + immediate_i;
             end
 
@@ -108,7 +101,6 @@ module core #(
                 program_counter_next = program_counter + immediate_j;
 
                 rd_wen               = 1'b1;
-                rd_addr              = destination_register_index;
                 rd_data              = program_counter + INSTRUCTION_BYTES;
             end
 
