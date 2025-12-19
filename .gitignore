@@ -3,3 +3,6 @@
 
 # Build artifacts
 build/
+
+# Agent instructions
+AGENTS.md
