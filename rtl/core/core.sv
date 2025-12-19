@@ -15,12 +15,32 @@ module core #(
     input logic [XLEN-1:0] memory_read_data
 );
 
-    /*
-    * Architectural state
-    */
+    // Registers
     logic [XLEN-1:0] program_counter_next;
-    logic [XLEN-1:0] registers[REGISTER_COUNT];
-    logic [XLEN-1:0] registers_next[REGISTER_COUNT];
+
+    logic [REGISTER_INDEX_WIDTH-1:0] rs1_addr, rs2_addr;
+    logic [XLEN-1:0] rs1_data, rs2_data;
+
+    logic rd_wen;
+    logic [REGISTER_INDEX_WIDTH-1:0] rd_addr;
+    logic [XLEN-1:0] rd_data;
+
+    regfile #(
+        .XLEN(XLEN)
+    ) regs (
+        .clk  (clk),
+        .n_rst(n_rst),
+
+        .rs1_addr(rs1_addr),
+        .rs2_addr(rs2_addr),
+        .rd_addr (rd_addr),
+
+        .rd_wen  (rd_wen),
+        .rd_wdata(rd_data),
+
+        .rs1_data(rs1_data),
+        .rs2_data(rs2_data)
+    );
 
     /*
     * Decode
@@ -48,7 +68,11 @@ module core #(
     assign immediate_i = {{(XLEN - 12) {instruction[31]}}, instruction[31:20]};
     assign immediate_s = {{(XLEN - 12) {instruction[31]}}, instruction[31:25], instruction[11:7]};
     assign immediate_j = {
-        {(XLEN - 12) {instruction[31]}}, instruction[19:12], instruction[20], instruction[30:21], 1'b0
+        {(XLEN - 12) {instruction[31]}},
+        instruction[19:12],
+        instruction[20],
+        instruction[30:21],
+        1'b0
     };
 
     /*
@@ -57,37 +81,48 @@ module core #(
     always_comb begin
         // Default behavior
         program_counter_next = program_counter + INSTRUCTION_BYTES;
-        for (int i = 0; i < REGISTER_COUNT; i++) begin
-            registers_next[i] = registers[i];
-        end
-        memory_write_enable = 1'b0;
-        memory_address      = '0;
-        memory_write_data   = '0;
+
+        // RAM default behavior
+        memory_write_enable  = 1'b0;
+        memory_address       = '0;
+        memory_write_data    = '0;
+
+        // Register default behavior
+        rs1_addr             = source_register_1_index;
+        rs2_addr             = source_register_2_index;
+        rd_wen               = 1'b0;
+        rd_addr              = '0;
+        rd_data              = '0;
 
         // Instruction specific
         unique case (instruction_class)
             // Integer arithmetic with immediate
             CLASS_OP_IMM: begin
-                registers_next[destination_register_index] = registers[source_register_1_index] + immediate_i;
+                rd_wen  = 1'b1;
+                rd_addr = destination_register_index;
+                rd_data = rs1_data + immediate_i;
             end
+
             // Jump and link
             CLASS_JAL: begin
-                registers_next[destination_register_index] = program_counter + INSTRUCTION_BYTES;
-                program_counter_next                       = program_counter + immediate_j;
+                program_counter_next = program_counter + immediate_j;
+
+                rd_wen               = 1'b1;
+                rd_addr              = destination_register_index;
+                rd_data              = program_counter + INSTRUCTION_BYTES;
             end
+
             // Store to memory
             CLASS_STORE: begin
                 memory_write_enable = 1'b1;
-                memory_address      = registers[source_register_1_index] + immediate_s;
-                memory_write_data   = registers[source_register_2_index];
+                memory_address      = rs1_data + immediate_s;
+                memory_write_data   = rs2_data;
             end
+
             default: begin
                 // nop
             end
         endcase
-
-        // Enforce register X0 = 0
-        registers_next[X0] = '0;
     end
 
     /*
@@ -96,14 +131,8 @@ module core #(
     always_ff @(posedge clk) begin
         if (~n_rst) begin
             program_counter <= '0;
-            for (int i = 0; i < REGISTER_COUNT; i++) begin
-                registers[i] <= '0;
-            end
         end else begin
             program_counter <= program_counter_next;
-            for (int i = 0; i < REGISTER_COUNT; i++) begin
-                registers[i] <= registers_next[i];
-            end
         end
     end
 
