@@ -1,5 +1,11 @@
 import riscv_pkg::*;
 
+/**
+ * @brief Unit testbench for the register file block.
+ *
+ * @param XLEN data path width under test.
+ * @param WAVE_FILE output VCD path for waveform dumps.
+ */
 module tb_regfile #(
     parameter int    XLEN      = 32,
     parameter string WAVE_FILE = "build/tb/regfile_tb.vcd"
@@ -34,21 +40,27 @@ module tb_regfile #(
     logic [XLEN-1:0] expected_regs[REGISTER_COUNT];
     int unsigned error_count;
 
-    /** @brief Cast unsigned int to DUT register-index width.
-     *  @param i raw register selector (loop/random value).
-     *  @return truncated index matching REGISTER_INDEX_WIDTH.
+    /**
+     * @brief Cast unsigned int to DUT register-index width.
+     *
+     * @param i raw register selector (loop/random value).
+     * @return truncated index matching REGISTER_INDEX_WIDTH.
      */
     function automatic logic [REGISTER_INDEX_WIDTH-1:0] idx(input int unsigned i);
         return i[REGISTER_INDEX_WIDTH-1:0];
     endfunction
 
-    /** @brief Advance simulation by one rising edge plus a small settle delay. */
+    /**
+     * @brief Advance simulation by one rising edge plus a small settle delay.
+     */
     task automatic tick();
         @(posedge clk);
         #1;
     endtask
 
-    /** @brief Drive active-low reset and clear expected model. */
+    /**
+     * @brief Drive active-low reset and clear expected model.
+     */
     task automatic apply_reset();
         n_rst    = 1'b0;
         rd_wen   = 1'b0;
@@ -67,10 +79,12 @@ module tb_regfile #(
         tick();
     endtask
 
-    /** @brief Compare actual vs expected data and log mismatches.
-     *  @param actual observed value from DUT.
-     *  @param expected golden value from model.
-     *  @param msg context string for error logging.
+    /**
+     * @brief Compare actual vs expected data and log mismatches.
+     *
+     * @param actual observed value from DUT.
+     * @param expected golden value from model.
+     * @param msg context string for error logging.
      */
     task automatic expect_eq(input logic [XLEN-1:0] actual, input logic [XLEN-1:0] expected,
                              input string msg);
@@ -80,9 +94,11 @@ module tb_regfile #(
         end
     endtask
 
-    /** @brief Drive both read addresses with truncated indices.
-     *  @param rs1 source register 1 index (int form).
-     *  @param rs2 source register 2 index (int form).
+    /**
+     * @brief Drive both read addresses with truncated indices.
+     *
+     * @param rs1 source register 1 index (int form).
+     * @param rs2 source register 2 index (int form).
      */
     task automatic set_reads(input int unsigned rs1, input int unsigned rs2);
         rs1_addr = idx(rs1);
@@ -90,9 +106,11 @@ module tb_regfile #(
         #1;
     endtask
 
-    /** @brief Perform a single-cycle write to the register file.
-     *  @param rd destination register index.
-     *  @param data payload to write on next negedge->posedge.
+    /**
+     * @brief Perform a single-cycle write to the register file.
+     *
+     * @param rd destination register index.
+     * @param data payload to write on next negedge->posedge.
      */
     task automatic write_reg(input int unsigned rd, input logic [XLEN-1:0] data);
         @(negedge clk);
@@ -111,9 +129,11 @@ module tb_regfile #(
         end
     endtask
 
-    /** @brief Validate a read port returns the expected model value.
-     *  @param port read port selector (1 or 2).
-     *  @param reg_index register index to read and check.
+    /**
+     * @brief Validate a read port returns the expected model value.
+     *
+     * @param port read port selector (1 or 2).
+     * @param reg_index register index to read and check.
      */
     task automatic check_read_port(input int unsigned port, input int unsigned reg_index);
         if (port == 1) begin

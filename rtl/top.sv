@@ -1,7 +1,6 @@
 import riscv_pkg::*;
 
 /**
-* top.sv
 * @brief Top-level definition for a simple RISC-V SoC.
 *
 * @param XLEN the SoC address bit width (32 or 64).

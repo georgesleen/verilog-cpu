@@ -1,5 +1,10 @@
 import tb_pkg::*;
 
+/**
+ * @brief Full-system testbench driving the CPU top-level.
+ *
+ * @param WAVE_FILE output VCD path for waveform dumps.
+ */
 module tb_top #(
     parameter string WAVE_FILE = "build/tb/wave.vcd"
 );
